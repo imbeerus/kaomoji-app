@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.lockwood.kaomoji"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -29,9 +29,9 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //noinspection GradleCompatible
-    implementation "com.android.support:appcompat-v7:27.1.1"
-    implementation "com.android.support:design:27.1.1"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support.constraint:constraint-layout:1.1.2"
 
     implementation "org.jetbrains.anko:anko-common:$anko_version"

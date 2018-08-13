@@ -19,5 +19,3 @@ fun View.slideExit() {
 fun View.slideEnter() {
     if (translationY < 0f) animate().translationY(0f)
 }
-
-fun NavigationView.setFirstItemChecked() { this.menu.getItem(0).isChecked = true }

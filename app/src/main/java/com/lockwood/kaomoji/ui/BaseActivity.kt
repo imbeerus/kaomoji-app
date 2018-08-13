@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.extensions.setFirstItemChecked
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 
@@ -14,11 +13,19 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
+    private var previousMenuItem: MenuItem? = null
+
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        nav_view.setFirstItemChecked()
         initToolbar()
         initNavigationDrawer()
+        // set last item checked
+        if (previousMenuItem == null) {
+            selectDrawerItem(nav_view.menu.getItem(0))
+        }
+        else {
+            selectDrawerItem(previousMenuItem as MenuItem)
+        }
     }
 
     override fun onBackPressed() {
@@ -41,9 +48,6 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
     private fun initNavigationDrawer() {
         nav_view.setNavigationItemSelectedListener { menuItem ->
-            // set item as selected to persist highlight
-            menuItem.isCheckable = true
-            menuItem.isChecked = true
             // close drawer when item is tapped
             drawer_layout.closeDrawers()
             selectDrawerItem(menuItem)
@@ -52,6 +56,12 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
     }
 
     private fun selectDrawerItem(menuItem: MenuItem) {
+        // set item as selected to persist highlight
+        menuItem.isCheckable = true
+        menuItem.isChecked = true
+        previousMenuItem?.isChecked = false
+        previousMenuItem = menuItem
+
         toolbarTitle = menuItem.title.toString()
     }
 }

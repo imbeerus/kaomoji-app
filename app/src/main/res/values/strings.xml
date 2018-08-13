@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">kaomoji</string>
+
+    <!-- Titles for nav drawer items -->
+    <string name="title_actions">Actions</string>
+    <string name="title_affectionate">Affectionate</string>
+    <string name="title_animals">Animals</string>
+    <string name="title_characters">Characters</string>
+    <string name="title_emotions">Emotions</string>
+
+    <!-- Titles for nav drawer menu items -->
+    <string name="title_home">Home</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_mojies">All kaomojies</string>
+    <string name="title_kissing">Kissing</string>
+    <string name="title_hugging">Hugging</string>
+    <string name="title_love">Love</string>
+    <string name="title_angry">Angry</string>
+    <string name="title_bears">Bears</string>
+    <string name="title_cats">Cats</string>
+    <string name="title_dogs">Dogs</string>
+    <string name="title_sheep_goats">Sheep and Goats</string>
+    <string name="title_deep_crying">Deep crying face</string>
+    <string name="title_denko">Denko</string>
+    <string name="title_flower_girl">Flower Girl</string>
+    <string name="title_happy_gary">Happy Gary</string>
+    <string name="title_its_here">It’s here!</string>
+    <string name="title_laughing">Laughing</string>
+    <string name="title_lenny_face">Lenny Face</string>
+    <string name="title_disapproval_look">Look of Disapproval</string>
+    <string name="title_whats_this">What’s this? Emoticon</string>
+    <string name="title_shrug">Shrug emoticon</string>
+    <string name="title_smiling">Smiling</string>
+    <string name="title_smug_face">Smug Face</string>
+    <string name="title_emoticon_face">Emoticon Face</string>
+    <string name="title_happy">Happy</string>
+    <string name="title_sad">Sad</string>
+
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+
+</resources>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/nav_category_main">
+
+        <item
+            android:id="@+id/nav_subcategory_home"
+            android:icon="@drawable/ic_baseline_home"
+            android:title="@string/title_home" />
+        <item
+            android:id="@+id/nav_subcategory_favorites"
+            android:icon="@drawable/ic_baseline_star"
+            android:title="@string/title_favorites" />
+        <item
+            android:id="@+id/nav_subcategory_all_mojies"
+            android:icon="@drawable/ic_baseline_list"
+            android:title="@string/title_mojies" />
+    </group>
+
+    <item
+        android:id="@+id/nav_category_actions"
+        android:title="@string/title_actions">
+        <menu>
+
+            <item
+                android:id="@+id/nav_subcategory_kissing"
+                android:title="@string/title_kissing" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_category_affectionate"
+        android:title="@string/title_affectionate">
+        <menu>
+
+            <item
+                android:id="@+id/nav_subcategory_hugging"
+                android:title="@string/title_hugging" />
+            <item
+                android:id="@+id/nav_subcategory_love"
+                android:title="@string/title_love" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_category_animals"
+        android:title="@string/title_animals">
+
+        <menu>
+            <item
+                android:id="@+id/nav_subcategory_bears"
+                android:title="@string/title_bears" />
+            <item
+                android:id="@+id/nav_subcategory_cats"
+                android:title="@string/title_cats" />
+            <item
+                android:id="@+id/nav_subcategory_dogs"
+                android:title="@string/title_dogs" />
+            <item
+                android:id="@+id/nav_subcategory_sheep_goats"
+                android:title="@string/title_sheep_goats" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_category_characters"
+        android:title="@string/title_characters">
+
+        <menu>
+            <item
+                android:id="@+id/nav_subcategory_deep_crying"
+                android:title="@string/title_deep_crying" />
+            <item
+                android:id="@+id/nav_subcategory_denko"
+                android:title="@string/title_denko" />
+            <item
+                android:id="@+id/nav_subcategory_flower_girl"
+                android:title="@string/title_flower_girl" />
+            <item
+                android:id="@+id/nav_subcategory_happy_gary"
+                android:title="@string/title_happy_gary" />
+            <item
+                android:id="@+id/nav_subcategory_its_here"
+                android:title="@string/title_its_here" />
+            <item
+                android:id="@+id/nav_subcategory_laughing"
+                android:title="@string/title_laughing" />
+            <item
+                android:id="@+id/nav_subcategory_lenny_face"
+                android:title="@string/title_lenny_face" />
+            <item
+                android:id="@+id/nav_subcategory_disapproval_look"
+                android:title="@string/title_disapproval_look" />
+            <item
+                android:id="@+id/nav_subcategory_whats_this"
+                android:title="@string/title_whats_this" />
+            <item
+                android:id="@+id/nav_subcategory_shrug"
+                android:title="@string/title_shrug" />
+            <item
+                android:id="@+id/nav_subcategory_smiling"
+                android:title="@string/title_smiling" />
+            <item
+                android:id="@+id/nav_subcategory_smug_face"
+                android:title="@string/title_smug_face" />
+            <item
+                android:id="@+id/nav_subcategory_emoticon_face"
+                android:title="@string/title_emoticon_face" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_category_emotions"
+        android:title="@string/title_emotions">
+
+        <menu>
+            <item
+                android:id="@+id/nav_subcategory_title_happy"
+                android:title="@string/title_happy" />
+            <item
+                android:id="@+id/nav_subcategory_sad"
+                android:title="@string/title_sad" />
+
+        </menu>
+    </item>
+
+</menu>

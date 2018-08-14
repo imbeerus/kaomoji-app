@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.fakeDataSet
 
 class KaomojisFragment : Fragment() {
@@ -20,7 +21,10 @@ class KaomojisFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
         val viewManager = LinearLayoutManager(activity)
         val viewAdapter = KaomojisAdapter(fakeDataSet) {
-            Toast.makeText(context, it.value, Toast.LENGTH_SHORT).show()
+            val text = it.value + "\n" + getString(R.string.action_copied)
+            val label = "kamoji ${it.value}"
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+            context?.copyToClipboard(label, it.value)
         }
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view).apply {
             setHasFixedSize(true)

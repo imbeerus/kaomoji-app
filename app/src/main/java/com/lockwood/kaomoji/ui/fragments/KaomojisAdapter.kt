@@ -5,20 +5,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.ctx
 import com.lockwood.kaomoji.extensions.drawable
+import com.lockwood.kaomoji.models.KamojiListener
 import com.lockwood.kaomoji.models.Kaomoji
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
 
-class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>,
-                      private val itemClick: (Kaomoji) -> Unit) :
+class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val isFavoriteEnabled: Boolean) :
         RecyclerView.Adapter<KaomojisAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.ctx).inflate(R.layout.list_item_kaomoji, parent, false)
-        return ViewHolder(view, itemClick)
+        return ViewHolder(view, isFavoriteEnabled)
     }
 
     @SuppressLint("SetTextI18n")
@@ -28,16 +30,41 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>,
 
     override fun getItemCount() = kamojisList.size
 
-    class ViewHolder(override val containerView: View, private val itemClick: (Kaomoji) -> Unit)
-        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class ViewHolder(override val containerView: View, private val isFavoriteEnabled: Boolean)
+        : RecyclerView.ViewHolder(containerView), LayoutContainer, KamojiListener {
 
-        fun bindKaomoji(kamoji: Kaomoji) {
-            with(kamoji) {
+        override fun bindKaomoji(kaomoji: Kaomoji) {
+            with(kaomoji) {
                 value_tv.text = value
-                if (isFavorite) {
-                    favorite_iv.setImageDrawable(itemView.ctx.drawable(R.drawable.ic_baseline_star_fill))
+                if (!isFavoriteEnabled) {
+                    favorite_iv.visibility = View.GONE
+                } else {
+                    checkState(this)
+                    favorite_iv.setOnClickListener { onFavoriteClicked(itemView, this) }
                 }
-                itemView.setOnClickListener { itemClick(this) }
+                itemView.setOnClickListener { onClicked(itemView, this) }
+            }
+        }
+
+        override fun onClicked(view: View, kaomoji: Kaomoji) {
+            with(kaomoji) {
+                val text = value + "\n" + itemView.ctx.getString(R.string.action_copied)
+                val label = "kamoji $value"
+                Toast.makeText(itemView.ctx, text, Toast.LENGTH_SHORT).show()
+                itemView.ctx.copyToClipboard(label, value)
+            }
+        }
+
+        override fun onFavoriteClicked(view: View, kaomoji: Kaomoji) {
+            kaomoji.isFavorite = !kaomoji.isFavorite
+            checkState(kaomoji)
+        }
+
+        override fun checkState(kaomoji: Kaomoji) {
+            if (kaomoji.isFavorite) {
+                favorite_iv.setImageDrawable(itemView.ctx.drawable(R.drawable.ic_baseline_star_fill))
+            } else {
+                favorite_iv.setImageDrawable(itemView.ctx.drawable(R.drawable.ic_baseline_star_border))
             }
         }
     }

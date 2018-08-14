@@ -19,13 +19,10 @@ class KaomojisFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
+        val withFavorite = arguments?.getBoolean(ARGUMENT_FAVORITE)
+
         val viewManager = LinearLayoutManager(activity)
-        val viewAdapter = KaomojisAdapter(fakeDataSet) {
-            val text = it.value + "\n" + getString(R.string.action_copied)
-            val label = "kamoji ${it.value}"
-            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
-            context?.copyToClipboard(label, it.value)
-        }
+        val viewAdapter = KaomojisAdapter(fakeDataSet, withFavorite!!)
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -37,7 +34,6 @@ class KaomojisFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val category = arguments?.getString(ARGUMENT_CATEGORY)
-        val withFavorite = arguments?.getBoolean(ARGUMENT_FAVORITE)
     }
 
     companion object {

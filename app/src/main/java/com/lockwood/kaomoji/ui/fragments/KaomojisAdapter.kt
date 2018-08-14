@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.data.KamojiListener
+import com.lockwood.kaomoji.data.Kaomoji
 import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.ctx
 import com.lockwood.kaomoji.extensions.drawable
-import com.lockwood.kaomoji.models.KamojiListener
-import com.lockwood.kaomoji.models.Kaomoji
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
+import org.jetbrains.anko.toast
 
 class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val isFavoriteEnabled: Boolean) :
         RecyclerView.Adapter<KaomojisAdapter.ViewHolder>() {
@@ -50,7 +51,7 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val i
             with(kaomoji) {
                 val text = value + "\n" + itemView.ctx.getString(R.string.action_copied)
                 val label = "kamoji $value"
-                Toast.makeText(itemView.ctx, text, Toast.LENGTH_SHORT).show()
+                itemView.ctx.toast(text).show()
                 itemView.ctx.copyToClipboard(label, value)
             }
         }

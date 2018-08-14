@@ -63,7 +63,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         previousMenuItem?.isChecked = false
         previousMenuItem = menuItem
 
-        val fragment: Fragment = when(menuItem.itemId) {
+        val fragment: Fragment = when (menuItem.itemId) {
             R.id.nav_subcategory_favorites -> KaomojisFragment.newInstance(menuItem.title.toString(), false)
             else -> KaomojisFragment.newInstance(menuItem.title.toString())
         }

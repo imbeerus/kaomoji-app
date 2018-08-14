@@ -1,4 +1,4 @@
-package com.lockwood.kaomoji.models
+package com.lockwood.kaomoji.data
 
 import android.view.View
 

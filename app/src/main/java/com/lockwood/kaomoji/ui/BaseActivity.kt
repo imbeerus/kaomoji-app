@@ -18,7 +18,6 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        // TODO: fix recycler view
         initToolbar()
         initNavigationDrawer()
         // set last item checked

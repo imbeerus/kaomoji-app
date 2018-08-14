@@ -1,7 +1,9 @@
 package com.lockwood.kaomoji.ui.fragments
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,13 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.extensions.addDividerItemDecoration
 import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.fakeDataSet
 
 class KaomojisFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
@@ -27,6 +29,7 @@ class KaomojisFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
+            addDividerItemDecoration()
         }
         return rootView
     }

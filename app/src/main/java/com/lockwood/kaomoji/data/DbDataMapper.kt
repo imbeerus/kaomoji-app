@@ -1,5 +1,8 @@
 package com.lockwood.kaomoji.data
 
+import com.lockwood.kaomoji.domain.Kaomoji
+import com.lockwood.kaomoji.domain.KaomojiList
+
 class DbDataMapper {
 
     fun convertFromDomain(kaomoji: KaomojiList) = with(kaomoji) {

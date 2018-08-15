@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.data.KamojiListener
-import com.lockwood.kaomoji.data.Kaomoji
+import com.lockwood.kaomoji.domain.KamojiListener
+import com.lockwood.kaomoji.domain.Kaomoji
 import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.ctx
 import com.lockwood.kaomoji.extensions.drawable

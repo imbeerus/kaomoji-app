@@ -1,6 +1,7 @@
 package com.lockwood.kaomoji.extensions
 
 import android.support.v4.app.Fragment
+import com.lockwood.kaomoji.domain.Kaomoji
 
 private val LOG_PREFIX = "kaomoji_"
 private val LOG_PREFIX_LENGTH = LOG_PREFIX.length
@@ -18,16 +19,16 @@ val Any.TAG: String
 val Fragment.fakeDataSet: ArrayList<Kaomoji>
     get() {
         return arrayListOf(
-                Kaomoji("=^._.^= ∫",true),
-                Kaomoji("=^._.^= ∫", false),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",true),
-                Kaomoji("=^._.^= ∫",false),
-                Kaomoji("=^._.^= ∫",false)
+                Kaomoji(0, "=^._.^= ∫",true),
+                Kaomoji(1, "=^._.^= ∫", false),
+                Kaomoji(2, "=^._.^= ∫",false),
+                Kaomoji(3,"=^._.^= ∫",false),
+                Kaomoji(4,"=^._.^= ∫",false),
+                Kaomoji(5,"=^._.^= ∫",false),
+                Kaomoji(6,"=^._.^= ∫",false),
+                Kaomoji(7, "=^._.^= ∫",false),
+                Kaomoji(8, "=^._.^= ∫",true),
+                Kaomoji(9, "=^._.^= ∫",false),
+                Kaomoji(10,"=^._.^= ∫",false)
         )
     }

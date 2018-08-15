@@ -1,7 +1,6 @@
 package com.lockwood.kaomoji.extensions
 
 import android.support.v4.app.Fragment
-import com.lockwood.kaomoji.data.Kaomoji
 
 private val LOG_PREFIX = "kaomoji_"
 private val LOG_PREFIX_LENGTH = LOG_PREFIX.length

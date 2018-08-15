@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.data.KamojiListener
 import com.lockwood.kaomoji.data.Kaomoji
@@ -36,7 +35,7 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val i
 
         override fun bindKaomoji(kaomoji: Kaomoji) {
             with(kaomoji) {
-                value_tv.text = value
+                value_tv.text = text
                 if (!isFavoriteEnabled) {
                     favorite_iv.visibility = View.GONE
                 } else {
@@ -49,10 +48,10 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val i
 
         override fun onClicked(view: View, kaomoji: Kaomoji) {
             with(kaomoji) {
-                val text = value + "\n" + itemView.ctx.getString(R.string.action_copied)
-                val label = "kamoji $value"
+                val text = text + "\n" + itemView.ctx.getString(R.string.action_copied)
+                val label = "kamoji $text"
                 itemView.ctx.toast(text).show()
-                itemView.ctx.copyToClipboard(label, value)
+                itemView.ctx.copyToClipboard(label, text)
             }
         }
 

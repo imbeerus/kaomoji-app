@@ -1,6 +1,7 @@
 package com.lockwood.kaomoji.domain
 
 import android.view.View
+import com.lockwood.kaomoji.domain.model.Kaomoji
 
 interface KamojiListener {
     fun bindKaomoji(kaomoji: Kaomoji)

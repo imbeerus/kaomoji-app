@@ -24,5 +24,4 @@ interface ToolbarManager {
             setHomeAsUpIndicator(drawable(R.drawable.ic_baseline_menu, android.R.color.white))
         }
     }
-
 }

@@ -1,7 +1,7 @@
 package com.lockwood.kaomoji.data
 
-import com.lockwood.kaomoji.domain.Kaomoji
-import com.lockwood.kaomoji.domain.KaomojiList
+import com.lockwood.kaomoji.domain.model.Kaomoji
+import com.lockwood.kaomoji.domain.model.KaomojiList
 
 class DbDataMapper {
 

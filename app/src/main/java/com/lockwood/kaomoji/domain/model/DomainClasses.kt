@@ -1,4 +1,4 @@
-package com.lockwood.kaomoji.domain
+package com.lockwood.kaomoji.domain.model
 
 data class KaomojiList(val id: Long, val type: String, val description: String,
                         val kaomojiList: List<Kaomoji>) {

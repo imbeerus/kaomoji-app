@@ -13,8 +13,12 @@ fun Context.drawable(res: Int): Drawable? = ContextCompat.getDrawable(this, res)
 
 fun Context.drawable(res: Int, colorRes: Int): Drawable? {
     val drawable = drawable(res)
-    drawable?.let { DrawableCompat.setTint(it, color(colorRes)) }
+    drawableColor(drawable, colorRes)
     return drawable
+}
+
+fun Context.drawableColor(drawable: Drawable?, colorRes: Int) = with(drawable) {
+    this?.let { DrawableCompat.setTint(it, color(colorRes)) }
 }
 
 fun Context.copyToClipboard(label: String, text: String) {

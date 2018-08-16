@@ -2,6 +2,7 @@
     <string name="app_name">kaomoji</string>
 
     <!-- Titles for nav drawer items -->
+    <string name="title_info">Info</string>
     <string name="title_actions">Actions</string>
     <string name="title_affectionate">Affectionate</string>
     <string name="title_animals">Animals</string>

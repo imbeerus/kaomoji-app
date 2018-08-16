@@ -5,11 +5,20 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
+import com.lockwood.kaomoji.App
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.domain.model.Kaomoji
+import com.lockwood.kaomoji.domain.model.KaomojiList
+import com.lockwood.kaomoji.extensions.ctx
+import com.lockwood.kaomoji.extensions.drawableColor
 import com.lockwood.kaomoji.ui.fragments.KaomojisFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.ctx
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 
 abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
@@ -37,10 +46,25 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        ctx.drawableColor(menu.getItem(0).icon, android.R.color.white)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 drawer_layout.openDrawer(GravityCompat.START)
+                true
+            }
+            R.id.action_info -> {
+                // TODO: change to current item description
+                alert("someting").show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -51,6 +75,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         nav_view.setNavigationItemSelectedListener { menuItem ->
             // close drawer when item is tapped
             drawer_layout.closeDrawers()
+            // TODO: slide toolbar
             selectDrawerItem(menuItem)
             true
         }

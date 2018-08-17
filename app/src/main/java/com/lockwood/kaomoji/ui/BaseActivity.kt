@@ -7,28 +7,27 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.lockwood.kaomoji.App
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.domain.model.KaomojiList
-import com.lockwood.kaomoji.extensions.ctx
 import com.lockwood.kaomoji.extensions.drawableColor
+import com.lockwood.kaomoji.extensions.scroll
 import com.lockwood.kaomoji.ui.fragments.KaomojisFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.ctx
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
 
 abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
+    private var currentIitem: KaomojiList? = null
     private var previousMenuItem: MenuItem? = null
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        initToolbar()
+        initToolbar(this)
         initNavigationDrawer()
         // set last item checked
         if (previousMenuItem == null) {
@@ -75,7 +74,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         nav_view.setNavigationItemSelectedListener { menuItem ->
             // close drawer when item is tapped
             drawer_layout.closeDrawers()
-            // TODO: slide toolbar
+            appbar.scroll()
             selectDrawerItem(menuItem)
             true
         }

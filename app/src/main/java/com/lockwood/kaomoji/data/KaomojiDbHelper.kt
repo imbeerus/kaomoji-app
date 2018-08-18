@@ -35,9 +35,9 @@ class KaomojiDbHelper(private val ctx: Context = App.instance) : ManagedSQLiteOp
         onCreate(db)
     }
 
-    fun copyDBFile() = ctx.copyAsset(DB_NAME, DB_PATH + DB_NAME)
+    private fun copyDBFile() = ctx.copyAsset(DB_NAME, DB_PATH + DB_NAME)
 
-    fun checkDataBase(): Boolean = ctx.isFileExist(DB_PATH + DB_NAME)
+    private fun checkDataBase(): Boolean = ctx.isFileExist(DB_PATH + DB_NAME)
 
     companion object {
         const val DB_NAME = "kaomoji.db"

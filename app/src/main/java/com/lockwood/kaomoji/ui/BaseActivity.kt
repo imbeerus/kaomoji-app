@@ -8,21 +8,17 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.domain.model.KaomojiList
 import com.lockwood.kaomoji.extensions.drawableColor
 import com.lockwood.kaomoji.extensions.scroll
 import com.lockwood.kaomoji.ui.fragments.KaomojisFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.ctx
 import org.jetbrains.anko.find
 
 abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
-    private var currentIitem: KaomojiList? = null
     private var previousMenuItem: MenuItem? = null
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -51,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        ctx.drawableColor(menu.getItem(0).icon, android.R.color.white)
+        drawableColor(menu.getItem(0).icon, android.R.color.white)
         return super.onPrepareOptionsMenu(menu)
     }
 
@@ -59,11 +55,6 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         return when (item.itemId) {
             android.R.id.home -> {
                 drawer_layout.openDrawer(GravityCompat.START)
-                true
-            }
-            R.id.action_info -> {
-                // TODO: change to current item description
-                alert("someting").show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

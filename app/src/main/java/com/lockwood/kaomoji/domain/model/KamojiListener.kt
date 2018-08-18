@@ -1,4 +1,4 @@
-package com.lockwood.kaomoji.domain
+package com.lockwood.kaomoji.domain.model
 
 import android.view.View
 import com.lockwood.kaomoji.domain.model.Kaomoji

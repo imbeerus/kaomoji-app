@@ -7,6 +7,9 @@ interface KaomojiDataSource {
 
     fun requestKaomojiByTypeId(typeId: Long): KaomojiList?
 
+    fun requestKaomojiByType(type: String): KaomojiList?
+
     fun requestItemKaomoji(id: Long): Kaomoji?
 
+    fun requestItemKaomojiByFavorite(isFavorite: Boolean): Kaomoji?
 }

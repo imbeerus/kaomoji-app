@@ -2,6 +2,7 @@ package com.lockwood.kaomoji.extensions
 
 import android.support.v4.app.Fragment
 import com.lockwood.kaomoji.domain.model.Kaomoji
+import com.lockwood.kaomoji.domain.model.KaomojiList
 
 private val LOG_PREFIX = "kaomoji_"
 private val LOG_PREFIX_LENGTH = LOG_PREFIX.length
@@ -16,9 +17,9 @@ val Any.TAG: String
         return LOG_PREFIX + className
     }
 
-val Fragment.fakeDataSet: ArrayList<Kaomoji>
+val Fragment.fakeDataSet: KaomojiList
     get() {
-        return arrayListOf(
+        return KaomojiList(0, "cat", "cat cat cat", arrayListOf(
                 Kaomoji(0, "=^._.^= ∫", true),
                 Kaomoji(1, "=^._.^= ∫", false),
                 Kaomoji(2, "=^._.^= ∫", false),
@@ -30,5 +31,5 @@ val Fragment.fakeDataSet: ArrayList<Kaomoji>
                 Kaomoji(8, "=^._.^= ∫", true),
                 Kaomoji(9, "=^._.^= ∫", false),
                 Kaomoji(10, "=^._.^= ∫", false)
-        )
+        ))
     }

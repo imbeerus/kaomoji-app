@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.domain.KamojiListener
+import com.lockwood.kaomoji.domain.model.KamojiListener
 import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.ctx
@@ -15,7 +15,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
 import org.jetbrains.anko.toast
 
-class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val isFavoriteEnabled: Boolean) :
+class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavoriteEnabled: Boolean) :
         RecyclerView.Adapter<KaomojisAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

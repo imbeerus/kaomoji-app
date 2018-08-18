@@ -9,12 +9,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
+import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
+import com.lockwood.kaomoji.domain.commands.RequestKaomojiTypeCommand
 import com.lockwood.kaomoji.domain.model.KaomojiList
 import com.lockwood.kaomoji.extensions.addDividerItemDecoration
 import com.lockwood.kaomoji.extensions.fakeDataSet
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.coroutines.experimental.bg
 
 class KaomojisFragment : Fragment() {
 
@@ -43,8 +47,16 @@ class KaomojisFragment : Fragment() {
     }
 
     private fun loadKaomoji() = async(UI) {
-        //   val result = bg { RequestForecastCommand(category).execute() }
-        //  updateUI(result.await())
+        val result = bg { commandByCategory(category) }
+        updateUI(result.await())
+    }
+
+    private fun commandByCategory(category: String): KaomojiList {
+        return when (category) {
+            RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand().execute()
+            RequestFavoriteKaomojiCommand.LIST_TYPE -> RequestFavoriteKaomojiCommand().execute()
+            else -> RequestKaomojiTypeCommand(category).execute()
+        }
     }
 
     private fun updateUI(kaomojis: KaomojiList) {

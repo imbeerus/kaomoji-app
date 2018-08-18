@@ -1,6 +1,6 @@
 package com.lockwood.kaomoji.domain.model
 
-data class KaomojiList(val id: Long, val type: String, val description: String,
+data class KaomojiList(val id: Long, var type: String, var description: String,
                         val kaomojiList: List<Kaomoji>) {
 
     val size: Int

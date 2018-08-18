@@ -10,19 +10,19 @@ import org.jetbrains.anko.db.insert
 class KaomojiDb(private val kamomojiDbHelper: KaomojiDbHelper = KaomojiDbHelper.instance,
                 private val dataMapper: DbDataMapper = DbDataMapper()) : KaomojiDataSource {
 
-    override fun requestKaomojiByTypeId(typeId: Long): KaomojiList? = kamomojiDbHelper.use {
+    override fun requestAllItemKaomoji(): KaomojiList? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestKaomojiByType(type: String): KaomojiList? = kamomojiDbHelper.use {
+    override fun requestFavoriteItemKaomoji(): KaomojiList? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestItemKaomoji(id: Long): Kaomoji? = kamomojiDbHelper.use {
+    override fun requestKaomojiByType(type: String): KaomojiList? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun requestItemKaomojiByFavorite(isFavorite: Boolean): Kaomoji? = kamomojiDbHelper.use {
+    override fun requestItemKaomoji(id: Long): Kaomoji? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

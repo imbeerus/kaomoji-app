@@ -5,11 +5,11 @@ import com.lockwood.kaomoji.domain.model.KaomojiList
 
 interface KaomojiDataSource {
 
-    fun requestKaomojiByTypeId(typeId: Long): KaomojiList?
+    fun requestAllItemKaomoji(): KaomojiList?
+
+    fun requestFavoriteItemKaomoji(): KaomojiList?
 
     fun requestKaomojiByType(type: String): KaomojiList?
 
     fun requestItemKaomoji(id: Long): Kaomoji?
-
-    fun requestItemKaomojiByFavorite(isFavorite: Boolean): Kaomoji?
 }

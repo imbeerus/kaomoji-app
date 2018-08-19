@@ -82,6 +82,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
             R.id.nav_subcategory_favorites -> KaomojisFragment.newInstance(menuItem.title.toString(), false)
             else -> KaomojisFragment.newInstance(menuItem.title.toString())
         }
+        // replace content fragment
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)

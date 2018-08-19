@@ -9,7 +9,7 @@ class RequestAllKaomojiCommand(
 
     companion object {
         const val LIST_DESCRIPTION = "Contains all available kaomojis"
-        const val LIST_TYPE = "All"
+        const val LIST_TYPE = "All kaomojies"
     }
 
     override fun execute() = kaomojiProvider.requestAllItemKaomoji().apply {

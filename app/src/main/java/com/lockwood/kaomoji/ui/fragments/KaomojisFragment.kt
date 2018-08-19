@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
+import com.lockwood.kaomoji.domain.commands.RequestHomeKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestKaomojiTypeCommand
 import com.lockwood.kaomoji.domain.model.KaomojiList
 import com.lockwood.kaomoji.extensions.addDividerItemDecoration
-import com.lockwood.kaomoji.extensions.fakeDataSet
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.alert
@@ -33,8 +33,9 @@ class KaomojisFragment : Fragment() {
         category = arguments?.getString(ARGUMENT_CATEGORY).toString()
         withFavorite = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view).apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(context)
             addDividerItemDecoration()
+            setHasFixedSize(true)
         }
         setHasOptionsMenu(true)
         return rootView
@@ -42,8 +43,7 @@ class KaomojisFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // loadKaomoji()
-        updateUI(fakeDataSet)
+        loadKaomoji()
     }
 
     private fun loadKaomoji() = async(UI) {
@@ -55,23 +55,21 @@ class KaomojisFragment : Fragment() {
         return when (category) {
             RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand().execute()
             RequestFavoriteKaomojiCommand.LIST_TYPE -> RequestFavoriteKaomojiCommand().execute()
+            RequestHomeKaomojiCommand.LIST_TYPE -> RequestHomeKaomojiCommand(category).execute()
             else -> RequestKaomojiTypeCommand(category).execute()
         }
     }
 
     private fun updateUI(kaomojis: KaomojiList) {
-        description = kaomojis.description
         val kaomojiAdapter = KaomojisAdapter(kaomojis.kaomojiList, withFavorite)
-        recyclerView.apply {
-            adapter = kaomojiAdapter
-            setHasFixedSize(true)
-        }
+        recyclerView.adapter = kaomojiAdapter
+        description = kaomojis.description
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_info -> {
-                activity!!.alert(description).show()
+                context!!.alert(description).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

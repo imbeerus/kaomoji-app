@@ -17,7 +17,7 @@ val Any.TAG: String
         return LOG_PREFIX + className
     }
 
-val Fragment.fakeDataSet: KaomojiList
+val Any.fakeDataSet: KaomojiList
     get() {
         return KaomojiList(0, "cat", "cat cat cat", arrayListOf(
                 Kaomoji(0, "=^._.^= ∫", true),

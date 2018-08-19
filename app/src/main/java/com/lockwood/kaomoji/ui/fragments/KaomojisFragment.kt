@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.data.ItemKaomoji
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestHomeKaomojiCommand
@@ -18,6 +17,7 @@ import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.coroutines.experimental.bg
+import org.jetbrains.anko.toast
 
 class KaomojisFragment : Fragment() {
 
@@ -58,7 +58,7 @@ class KaomojisFragment : Fragment() {
         return when (category) {
             RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand().execute()
             RequestFavoriteKaomojiCommand.LIST_TYPE -> RequestFavoriteKaomojiCommand().execute()
-            RequestHomeKaomojiCommand.LIST_TYPE -> RequestHomeKaomojiCommand(homeCategory).execute()
+            RequestHomeKaomojiCommand.LIST_TYPE -> commandByCategory(homeCategory)
             else -> RequestKaomojiTypeCommand(category).execute()
         }
     }
@@ -84,10 +84,11 @@ class KaomojisFragment : Fragment() {
             }
             R.id.action_home -> {
                 val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-                with (sharedPref!!.edit()) {
-                    putString(KaomojiList.PREF_TYPE, item.title.toString())
+                with(sharedPref!!.edit()) {
+                    putString(KaomojiList.PREF_TYPE, category)
                     apply()
                 }
+                context!!.toast("$category ${getString(R.string.action_set_home)}").show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

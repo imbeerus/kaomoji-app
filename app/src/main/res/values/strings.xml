@@ -44,5 +44,6 @@
     <string name="nav_drawer_close">Close navigation drawer</string>
 
     <string name="action_copied">copied :)</string>
+    <string name="action_set_home">is home now</string>
 
 </resources>

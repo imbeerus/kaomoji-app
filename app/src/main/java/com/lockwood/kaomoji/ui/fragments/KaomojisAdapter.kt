@@ -48,7 +48,7 @@ class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavo
 
         override fun onClicked(view: View, kaomoji: Kaomoji) {
             with(kaomoji) {
-                val showText = text + "\n" + itemView.ctx.getString(R.string.action_copied)
+                val showText = "$text\n${itemView.ctx.getString(R.string.action_copied)}"
                 val label = "kamoji $text"
                 itemView.ctx.toast(showText).show()
                 itemView.ctx.copyToClipboard(label, text)

@@ -11,11 +11,19 @@ class KaomojiDb(private val kamomojiDbHelper: KaomojiDbHelper = KaomojiDbHelper.
                 private val dataMapper: DbDataMapper = DbDataMapper()) : KaomojiDataSource {
 
     override fun requestAllItemKaomoji(): KaomojiList? = kamomojiDbHelper.use {
-        fakeDataSet
+        val itemKaomoji = select(ItemKaomojiTable.NAME).parseList { ItemKaomoji(HashMap(it)) }
+        val blankKaomojis = TypeKaomoji(0, "", "", itemKaomoji)
+        blankKaomojis.let { dataMapper.convertToDomain(it) }
     }
 
     override fun requestFavoriteItemKaomoji(): KaomojiList? = kamomojiDbHelper.use {
-        fakeDataSet
+        val isFavorite = true.toLong().toString()
+        val itemKaomoji = select(ItemKaomojiTable.NAME)
+                .whereSimple("${ItemKaomojiTable.IS_FAVORITE} = ?", isFavorite)
+                .parseList { ItemKaomoji(HashMap(it)) }
+
+        val blankKaomojis = TypeKaomoji(0, "", "", itemKaomoji)
+        blankKaomojis.let { dataMapper.convertToDomain(it) }
     }
 
     override fun requestKaomojiByType(type: String): KaomojiList? = kamomojiDbHelper.use {
@@ -27,7 +35,6 @@ class KaomojiDb(private val kamomojiDbHelper: KaomojiDbHelper = KaomojiDbHelper.
         val typeKaomojis = select(TypeKaomojiTable.NAME)
                 .whereSimple("${TypeKaomojiTable.ID} = ?", typeId)
                 .parseOpt { TypeKaomoji(HashMap(it), itemKaomoji) }
-
         typeKaomojis?.let { dataMapper.convertToDomain(it) }
     }
 

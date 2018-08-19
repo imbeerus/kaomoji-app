@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_info_outline"
         android:title="@string/title_info"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_home"
+        android:title="@string/title_set_home"
+        app:showAsAction="never" />
 </menu>

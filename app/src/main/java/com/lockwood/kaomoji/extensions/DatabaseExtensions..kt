@@ -20,4 +20,12 @@ fun SQLiteDatabase.clear(tableName: String) {
 
 fun SelectQueryBuilder.byId(id: Long) = whereSimple("_id = ?", id.toString())
 
-fun Int.isTrue() = this == 1
+fun Long.toBoolean(): Boolean = this == 1L
+
+fun Boolean.toLong(): Long {
+    return if (this) {
+        1L
+    } else {
+        0L
+    }
+}

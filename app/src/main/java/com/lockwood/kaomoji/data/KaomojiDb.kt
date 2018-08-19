@@ -3,10 +3,7 @@ package com.lockwood.kaomoji.data
 import com.lockwood.kaomoji.domain.datasource.KaomojiDataSource
 import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.domain.model.KaomojiList
-import com.lockwood.kaomoji.extensions.byId
-import com.lockwood.kaomoji.extensions.fakeDataSet
-import com.lockwood.kaomoji.extensions.parseOpt
-import com.lockwood.kaomoji.extensions.toVarargArray
+import com.lockwood.kaomoji.extensions.*
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.db.update
 
@@ -22,7 +19,16 @@ class KaomojiDb(private val kamomojiDbHelper: KaomojiDbHelper = KaomojiDbHelper.
     }
 
     override fun requestKaomojiByType(type: String): KaomojiList? = kamomojiDbHelper.use {
-        fakeDataSet
+        val typeId = dataMapper.convertTypeToId(type)
+        val itemKaomoji = select(ItemKaomojiTable.NAME)
+                .whereSimple("${ItemKaomojiTable.TYPE_ID} = ?", typeId)
+                .parseList { ItemKaomoji(HashMap(it)) }
+
+        val typeKaomojis = select(TypeKaomojiTable.NAME)
+                .whereSimple("${TypeKaomojiTable.ID} = ?", typeId)
+                .parseOpt { TypeKaomoji(HashMap(it), itemKaomoji) }
+
+        typeKaomojis?.let { dataMapper.convertToDomain(it) }
     }
 
     override fun requestItemKaomoji(id: Long): Kaomoji? = kamomojiDbHelper.use {

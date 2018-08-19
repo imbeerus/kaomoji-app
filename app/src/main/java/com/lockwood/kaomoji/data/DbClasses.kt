@@ -16,10 +16,10 @@ class TypeKaomoji(val map: MutableMap<String, Any?>, val kaomojiList: List<ItemK
 class ItemKaomoji(var map: MutableMap<String, Any?>) {
     var _id: Long by map
     var text: String by map
-    var isFavorite: Boolean by map
+    var isFavorite: Long by map
     var typeId: Long by map
 
-    constructor(text: String, isFavorite: Boolean, typeId: Long)
+    constructor(text: String, isFavorite: Long, typeId: Long)
             : this(HashMap()) {
         this.text = text
         this.isFavorite = isFavorite

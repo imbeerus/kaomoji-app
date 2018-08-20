@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.extensions.check
 import com.lockwood.kaomoji.extensions.drawableColor
 import com.lockwood.kaomoji.extensions.replaceFragment
 import com.lockwood.kaomoji.extensions.scroll
@@ -30,9 +31,9 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         // set last item checked
         if (savedInstanceState != null) {
             lastItemId = savedInstanceState.getInt(BUNDLE_LAST_ITEM_ID, nav_view.menu.getItem(0).itemId)
-            with(nav_view.menu.findItem(lastItemId)){
-                isCheckable = true
-                isChecked = true
+            previousMenuItem = nav_view.menu.findItem(lastItemId)
+            with(nav_view.menu.findItem(lastItemId)) {
+                check()
                 toolbarTitle = title.toString()
             }
         } else {
@@ -85,8 +86,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
 
     private fun selectDrawerItem(menuItem: MenuItem) {
         // set item as selected to persist highlight
-        menuItem.isCheckable = true
-        menuItem.isChecked = true
+        menuItem.check()
         lastItemId = menuItem.itemId
         previousMenuItem?.isChecked = false
         previousMenuItem = menuItem
@@ -100,6 +100,6 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
     }
 
     companion object {
-       private const val BUNDLE_LAST_ITEM_ID = "lastItemId"
+        private const val BUNDLE_LAST_ITEM_ID = "lastItemId"
     }
 }

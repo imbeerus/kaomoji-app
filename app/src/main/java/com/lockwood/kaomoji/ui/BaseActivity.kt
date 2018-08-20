@@ -21,17 +21,28 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     private var previousMenuItem: MenuItem? = null
+    private var lastItemId: Int = 0
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         initToolbar(this)
         initNavigationDrawer()
         // set last item checked
-        if (previousMenuItem == null) {
-            selectDrawerItem(nav_view.menu.getItem(0))
+        if (savedInstanceState != null) {
+            lastItemId = savedInstanceState.getInt(BUNDLE_LAST_ITEM_ID, nav_view.menu.getItem(0).itemId)
+            with(nav_view.menu.findItem(lastItemId)){
+                isCheckable = true
+                isChecked = true
+                toolbarTitle = title.toString()
+            }
         } else {
-            selectDrawerItem(previousMenuItem as MenuItem)
+            selectDrawerItem(nav_view.menu.getItem(0))
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(BUNDLE_LAST_ITEM_ID, lastItemId)
     }
 
     override fun onBackPressed() {
@@ -76,6 +87,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         // set item as selected to persist highlight
         menuItem.isCheckable = true
         menuItem.isChecked = true
+        lastItemId = menuItem.itemId
         previousMenuItem?.isChecked = false
         previousMenuItem = menuItem
 
@@ -85,5 +97,9 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
         }
         replaceFragment(R.id.fragment_container, fragment)
         toolbarTitle = menuItem.title.toString()
+    }
+
+    companion object {
+       private const val BUNDLE_LAST_ITEM_ID = "lastItemId"
     }
 }

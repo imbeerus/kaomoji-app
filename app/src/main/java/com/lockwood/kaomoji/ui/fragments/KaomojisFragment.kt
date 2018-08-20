@@ -27,6 +27,11 @@ class KaomojisFragment : Fragment() {
     private lateinit var homeCategory: String
     private var withFavorite: Boolean = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
         // init fragment args

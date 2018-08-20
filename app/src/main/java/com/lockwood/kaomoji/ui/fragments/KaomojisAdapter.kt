@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.data.KaomojiDb
 import com.lockwood.kaomoji.domain.model.KamojiListener
 import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.extensions.copyToClipboard
@@ -13,6 +14,7 @@ import com.lockwood.kaomoji.extensions.ctx
 import com.lockwood.kaomoji.extensions.drawable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
+import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
 
 class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavoriteEnabled: Boolean) :
@@ -55,9 +57,10 @@ class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavo
             }
         }
 
-        override fun onFavoriteClicked(view: View, kaomoji: Kaomoji) {
-            kaomoji.isFavorite = !kaomoji.isFavorite
-            checkState(kaomoji)
+        override fun onFavoriteClicked(view: View, kaomoji: Kaomoji) = with(kaomoji) {
+            isFavorite = !isFavorite
+            KaomojiDb().updateKaomoji(this)
+            checkState(this)
         }
 
         override fun checkState(kaomoji: Kaomoji) {

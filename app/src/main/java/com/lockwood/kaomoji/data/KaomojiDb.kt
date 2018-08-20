@@ -43,11 +43,9 @@ class KaomojiDb(private val kamomojiDbHelper: KaomojiDbHelper = KaomojiDbHelper.
         kaomoji?.let { dataMapper.convertItemToDomain(it) }
     }
 
-    fun updateKaomoji(kaomoji: KaomojiList) = kamomojiDbHelper.use {
-        with(dataMapper.convertFromDomain(kaomoji)) {
-            update(TypeKaomojiTable.NAME, *map.toVarargArray())
-            kaomojiList.forEach { update(ItemKaomojiTable.NAME, *it.map.toVarargArray()) }
-        }
+    fun updateKaomoji(kaomoji: Kaomoji) = kamomojiDbHelper.use {
+        update(ItemKaomojiTable.NAME, ItemKaomojiTable.IS_FAVORITE to kaomoji.isFavorite.toLong())
+                .whereSimple("${ItemKaomojiTable.ID} = ?", kaomoji.id.toString())
+                .exec()
     }
-
 }

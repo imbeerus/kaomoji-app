@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.extensions.drawableColor
+import com.lockwood.kaomoji.extensions.replaceFragment
 import com.lockwood.kaomoji.extensions.scroll
 import com.lockwood.kaomoji.ui.fragments.KaomojisFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -82,12 +83,7 @@ abstract class BaseActivity : AppCompatActivity(), ToolbarManager {
             R.id.nav_subcategory_favorites -> KaomojisFragment.newInstance(menuItem.title.toString(), false)
             else -> KaomojisFragment.newInstance(menuItem.title.toString())
         }
-        // replace content fragment
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit()
-
+        replaceFragment(R.id.fragment_container, fragment)
         toolbarTitle = menuItem.title.toString()
     }
 }

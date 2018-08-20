@@ -14,7 +14,6 @@ import com.lockwood.kaomoji.extensions.ctx
 import com.lockwood.kaomoji.extensions.drawable
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
-import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
 
 class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavoriteEnabled: Boolean) :

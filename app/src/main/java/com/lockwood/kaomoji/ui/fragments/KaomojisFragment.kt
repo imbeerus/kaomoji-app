@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.data.DbDataMapper
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestHomeKaomojiCommand
@@ -122,8 +121,7 @@ class KaomojisFragment : Fragment() {
                     putString(KaomojiList.PREF_TYPE, category)
                     apply()
                 }
-               // context!!.toast("$category ${getString(R.string.action_set_home)}").show()
-                context!!.toast(DbDataMapper().convertTypeToId(category)).show()
+                context!!.toast("$category ${getString(R.string.action_set_home)}").show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -16,7 +16,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
 import org.jetbrains.anko.toast
 
-class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavoriteEnabled: Boolean) :
+class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val isFavoriteEnabled: Boolean) :
         RecyclerView.Adapter<KaomojisAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +30,13 @@ class KaomojisAdapter(private val kamojisList: List<Kaomoji>, private val isFavo
     }
 
     override fun getItemCount() = kamojisList.size
+
+    fun addItems(listToAdd: ArrayList<Kaomoji>){
+        for (kaomoji in listToAdd) {
+            kamojisList.add(kaomoji)
+        }
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(override val containerView: View, private val isFavoriteEnabled: Boolean)
         : RecyclerView.ViewHolder(containerView), LayoutContainer, KamojiListener {

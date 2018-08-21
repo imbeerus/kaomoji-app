@@ -7,19 +7,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.lockwood.kaomoji.R
-import com.lockwood.kaomoji.data.KaomojiDbHelper
+import com.lockwood.kaomoji.data.DbDataMapper
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestHomeKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestKaomojiTypeCommand
 import com.lockwood.kaomoji.domain.model.KaomojiList
 import com.lockwood.kaomoji.extensions.addDividerItemDecoration
+import com.lockwood.kaomoji.extensions.isLastItemReached
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
-import java.io.File
+
 
 class KaomojisFragment : Fragment() {
 
@@ -28,6 +29,10 @@ class KaomojisFragment : Fragment() {
     private lateinit var category: String
     private lateinit var homeCategory: String
     private var withFavorite: Boolean = false
+    private var isLargeData: Boolean = false
+    private var isDataLoading: Boolean = false
+
+    private var offset: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,7 @@ class KaomojisFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
         // init fragment args
         category = arguments?.getString(ARGUMENT_CATEGORY).toString()
+        isLargeData = category == RequestAllKaomojiCommand.LIST_TYPE
         withFavorite = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
         homeCategory = sharedPref!!.getString(KaomojiList.PREF_TYPE, KaomojiList.DEF_TYPE_VALUE)
@@ -45,8 +51,16 @@ class KaomojisFragment : Fragment() {
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             addDividerItemDecoration()
-            setHasFixedSize(true)
+            setHasFixedSize(!isLargeData)
         }
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (isLargeData && !isDataLoading && recyclerView.isLastItemReached()) {
+                    loadAdditonalKaomoji()
+                }
+            }
+        })
         setHasOptionsMenu(true)
         return rootView
     }
@@ -61,19 +75,32 @@ class KaomojisFragment : Fragment() {
         updateUI(result.await())
     }
 
+    private fun loadAdditonalKaomoji() = async(UI) {
+        offset += RequestAllKaomojiCommand.LIMIT_COUNT
+        isDataLoading = true
+        val result = bg { commandByCategory(category) }
+        updateUI(result.await(), true)
+    }
+
     private fun commandByCategory(category: String): KaomojiList {
         return when (category) {
-            RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand(0).execute()
+            RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand(offset).execute()
             RequestFavoriteKaomojiCommand.LIST_TYPE -> RequestFavoriteKaomojiCommand().execute()
             RequestHomeKaomojiCommand.LIST_TYPE -> commandByCategory(homeCategory)
             else -> RequestKaomojiTypeCommand(category).execute()
         }
     }
 
-    private fun updateUI(kaomojis: KaomojiList) {
-        val kaomojiAdapter = KaomojisAdapter(kaomojis.kaomojiList, withFavorite)
-        recyclerView.adapter = kaomojiAdapter
-        description = kaomojis.description
+    private fun updateUI(kaomojis: KaomojiList, additional: Boolean = false) {
+        if (!additional) {
+            val kaomojiAdapter = KaomojisAdapter(kaomojis.kaomojiList, withFavorite)
+            recyclerView.adapter = kaomojiAdapter
+            description = kaomojis.description
+        } else {
+            (recyclerView.adapter as KaomojisAdapter).addItems(kaomojis.kaomojiList)
+            isDataLoading = false
+        }
+
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -95,7 +122,8 @@ class KaomojisFragment : Fragment() {
                     putString(KaomojiList.PREF_TYPE, category)
                     apply()
                 }
-                context!!.toast("$category ${getString(R.string.action_set_home)}").show()
+               // context!!.toast("$category ${getString(R.string.action_set_home)}").show()
+                context!!.toast(DbDataMapper().convertTypeToId(category)).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

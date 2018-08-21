@@ -3,6 +3,7 @@ package com.lockwood.kaomoji.extensions
 import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
@@ -28,7 +29,17 @@ fun AppBarLayout.collapse() {
     setExpanded(false, true)
 }
 
-fun MenuItem.check(){
+fun MenuItem.check() {
     isCheckable = true
     isChecked = true
+}
+
+
+fun RecyclerView.isLastItemReached(): Boolean {
+    val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+    val size = layoutManager.itemCount - 1
+    if (lastItemPosition == size) {
+        return true
+    }
+    return false
 }

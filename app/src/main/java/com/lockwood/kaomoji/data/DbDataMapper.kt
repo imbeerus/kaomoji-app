@@ -18,7 +18,7 @@ class DbDataMapper {
 
     fun convertToDomain(typeKaomoji: TypeKaomoji) = with(typeKaomoji) {
         val list = kaomojiList.map { convertItemToDomain(it) }
-        KaomojiList(_id, type, description, list)
+        KaomojiList(_id, type, description, list as ArrayList)
     }
 
     fun convertItemToDomain(itemKaomoji: ItemKaomoji) = with(itemKaomoji) {

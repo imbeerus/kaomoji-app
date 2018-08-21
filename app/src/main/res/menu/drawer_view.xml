@@ -18,13 +18,37 @@
     </group>
 
     <item
+        android:id="@+id/nav_category_greetings"
+        android:title="@string/title_greetings">
+        <menu>
+
+            <item
+                android:id="@+id/nav_subcategory_good_morning"
+                android:title="@string/title_good_morning" />
+            <item
+                android:id="@+id/nav_subcategory_good_night"
+                android:title="@string/title_good_night" />
+            <item
+                android:id="@+id/nav_subcategory_hello"
+                android:title="@string/title_hello" />
+            <item
+                android:id="@+id/nav_subcategory_thank_you"
+                android:title="@string/title_thank_you" />
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/nav_category_actions"
         android:title="@string/title_actions">
         <menu>
 
             <item
                 android:id="@+id/nav_subcategory_kissing"
-                android:title="@string/title_kissing" />
+                android:title="@string/title_kissing"/>
+
+            <item
+                android:id="@+id/nav_subcategory_table_flip"
+                android:title="@string/title_table_flip"/>
         </menu>
     </item>
 
@@ -39,6 +63,20 @@
             <item
                 android:id="@+id/nav_subcategory_love"
                 android:title="@string/title_love" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_category_emotions"
+        android:title="@string/title_emotions">
+
+        <menu>
+            <item
+                android:id="@+id/nav_subcategory_title_happy"
+                android:title="@string/title_happy" />
+            <item
+                android:id="@+id/nav_subcategory_sad"
+                android:title="@string/title_sad" />
         </menu>
     </item>
 
@@ -106,21 +144,6 @@
             <item
                 android:id="@+id/nav_subcategory_emoticon_face"
                 android:title="@string/title_emoticon_face" />
-        </menu>
-    </item>
-
-    <item
-        android:id="@+id/nav_category_emotions"
-        android:title="@string/title_emotions">
-
-        <menu>
-            <item
-                android:id="@+id/nav_subcategory_title_happy"
-                android:title="@string/title_happy" />
-            <item
-                android:id="@+id/nav_subcategory_sad"
-                android:title="@string/title_sad" />
-
         </menu>
     </item>
 

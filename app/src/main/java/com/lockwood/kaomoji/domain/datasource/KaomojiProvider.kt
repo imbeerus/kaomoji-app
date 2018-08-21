@@ -13,7 +13,7 @@ class KaomojiProvider(private val sources: List<KaomojiDataSource> = KaomojiProv
 
     fun requestFavoriteItemKaomoji(): KaomojiList = requestToSources { it.requestFavoriteItemKaomoji() }
 
-    fun requestAllItemKaomoji(): KaomojiList = requestToSources { it.requestAllItemKaomoji() }
+    fun requestAllItemKaomoji(offset: Int): KaomojiList = requestToSources { it.requestAllItemKaomoji(offset) }
 
     fun requestKaomojiByType(type: String): KaomojiList = requestToSources { it.requestKaomojiByType(type) }
 

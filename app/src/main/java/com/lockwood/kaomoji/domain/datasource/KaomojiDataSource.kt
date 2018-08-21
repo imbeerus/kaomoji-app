@@ -5,7 +5,7 @@ import com.lockwood.kaomoji.domain.model.KaomojiList
 
 interface KaomojiDataSource {
 
-    fun requestAllItemKaomoji(): KaomojiList?
+    fun requestAllItemKaomoji(offset: Int): KaomojiList?
 
     fun requestFavoriteItemKaomoji(): KaomojiList?
 

@@ -48,7 +48,12 @@ class DbDataMapper {
                 "smug face" to "18",
                 "emoticon face" to "19",
                 "happy" to "20",
-                "sad" to "21"
+                "sad" to "21",
+                "good morning" to "22",
+                "good night" to "23",
+                "hello" to "24",
+                "thank you" to "25",
+                "table flip" to "26"
         )
         return types[category.toLowerCase()].toString()
     }

@@ -1,17 +1,24 @@
 package com.lockwood.kaomoji.data
 
+import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.datasource.KaomojiDataSource
 import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.domain.model.KaomojiList
-import com.lockwood.kaomoji.extensions.*
+import com.lockwood.kaomoji.extensions.byId
+import com.lockwood.kaomoji.extensions.parseList
+import com.lockwood.kaomoji.extensions.parseOpt
+import com.lockwood.kaomoji.extensions.toLong
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.db.update
 
 class KaomojiDb(private val kamomojiDbHelper: KaomojiDbHelper = KaomojiDbHelper.instance,
                 private val dataMapper: DbDataMapper = DbDataMapper()) : KaomojiDataSource {
 
-    override fun requestAllItemKaomoji(): KaomojiList? = kamomojiDbHelper.use {
-        val itemKaomoji = select(ItemKaomojiTable.NAME).parseList { ItemKaomoji(HashMap(it)) }
+    override fun requestAllItemKaomoji(offset: Int): KaomojiList? = kamomojiDbHelper.use {
+        val itemKaomoji = select(ItemKaomojiTable.NAME)
+                .orderBy(ItemKaomojiTable.TYPE_ID)
+                .limit(offset, RequestAllKaomojiCommand.LIMIT_COUNT)
+                .parseList { ItemKaomoji(HashMap(it)) }
         val blankKaomojis = TypeKaomoji(0, "", "", itemKaomoji)
         blankKaomojis.let { dataMapper.convertToDomain(it) }
     }

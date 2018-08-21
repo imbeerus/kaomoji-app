@@ -3,6 +3,7 @@ package com.lockwood.kaomoji.ui
 import android.os.Build
 import android.os.Bundle
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.data.KaomojiDbHelper
 import com.lockwood.kaomoji.extensions.transparentStatusBar
 
 class MainActivity : BaseActivity() {
@@ -13,5 +14,6 @@ class MainActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             transparentStatusBar()
         }
+        KaomojiDbHelper.instance.openDatabase()
     }
 }

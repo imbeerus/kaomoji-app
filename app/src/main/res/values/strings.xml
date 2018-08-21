@@ -11,6 +11,7 @@
     <string name="title_animals">Animals</string>
     <string name="title_characters">Characters</string>
     <string name="title_emotions">Emotions</string>
+    <string name="title_greetings">Greetings</string>
 
     <!-- Titles for nav drawer menu items -->
     <string name="title_home">Home</string>
@@ -39,6 +40,11 @@
     <string name="title_emoticon_face">Emoticon Face</string>
     <string name="title_happy">Happy</string>
     <string name="title_sad">Sad</string>
+    <string name="title_good_morning">Good Morning</string>
+    <string name="title_good_night">Good Night</string>
+    <string name="title_hello">Hello</string>
+    <string name="title_thank_you">Thank You</string>
+    <string name="title_table_flip">Table Flip</string>
 
     <string name="nav_drawer_open">Open navigation drawer</string>
     <string name="nav_drawer_close">Close navigation drawer</string>

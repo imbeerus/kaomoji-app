@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.data.KaomojiDbHelper
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestHomeKaomojiCommand
@@ -18,6 +19,7 @@ import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
+import java.io.File
 
 class KaomojisFragment : Fragment() {
 
@@ -61,7 +63,7 @@ class KaomojisFragment : Fragment() {
 
     private fun commandByCategory(category: String): KaomojiList {
         return when (category) {
-            RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand().execute()
+            RequestAllKaomojiCommand.LIST_TYPE -> RequestAllKaomojiCommand(0).execute()
             RequestFavoriteKaomojiCommand.LIST_TYPE -> RequestFavoriteKaomojiCommand().execute()
             RequestHomeKaomojiCommand.LIST_TYPE -> commandByCategory(homeCategory)
             else -> RequestKaomojiTypeCommand(category).execute()

@@ -6,13 +6,18 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
+import android.widget.ImageView
 import com.lockwood.kaomoji.R
+import com.lockwood.kaomoji.data.KaomojiDb
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestFavoriteKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestHomeKaomojiCommand
 import com.lockwood.kaomoji.domain.commands.RequestKaomojiTypeCommand
+import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.domain.model.KaomojiList
 import com.lockwood.kaomoji.extensions.addDividerItemDecoration
+import com.lockwood.kaomoji.extensions.changeState
+import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.isLastItemReached
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -27,7 +32,7 @@ class KaomojisFragment : Fragment() {
     private lateinit var description: String
     private lateinit var category: String
     private lateinit var homeCategory: String
-    private var withFavorite: Boolean = false
+    private var isFavoriteEnabled: Boolean = false
     private var isLargeData: Boolean = false
     private var isDataLoading: Boolean = false
 
@@ -43,7 +48,7 @@ class KaomojisFragment : Fragment() {
         // init fragment args
         category = arguments?.getString(ARGUMENT_CATEGORY).toString()
         isLargeData = category == RequestAllKaomojiCommand.LIST_TYPE
-        withFavorite = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
+        isFavoriteEnabled = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
         homeCategory = sharedPref!!.getString(KaomojiList.PREF_TYPE, KaomojiList.DEF_TYPE_VALUE)
 
@@ -92,14 +97,27 @@ class KaomojisFragment : Fragment() {
 
     private fun updateUI(kaomojis: KaomojiList, additional: Boolean = false) {
         if (!additional) {
-            val kaomojiAdapter = KaomojisAdapter(kaomojis.kaomojiList, withFavorite)
+            val kaomojiAdapter = KaomojisAdapter(kaomojis.kaomojiList,
+                    {
+                        with(it) {
+                            val showText = "$text\n${getString(R.string.action_copied)}"
+                            val label = "kamoji $text"
+                            context!!.toast(showText).show()
+                            context!!.copyToClipboard(label, text)
+                        }
+                    },
+                    { favoriteImage: ImageView, kaomoji: Kaomoji ->
+                        kaomoji.isFavorite = !kaomoji.isFavorite
+                        KaomojiDb().updateKaomoji(kaomoji)
+                        favoriteImage.changeState(kaomoji.isFavorite, R.drawable.ic_baseline_star_fill, R.drawable.ic_baseline_star_border)
+                    },
+                    isFavoriteEnabled)
             recyclerView.adapter = kaomojiAdapter
             description = kaomojis.description
         } else {
             (recyclerView.adapter as KaomojisAdapter).addItems(kaomojis.kaomojiList)
             isDataLoading = false
         }
-
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

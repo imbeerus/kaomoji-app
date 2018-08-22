@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import com.lockwood.kaomoji.R
 
 val View.ctx: Context
     get() = context
@@ -34,7 +36,6 @@ fun MenuItem.check() {
     isChecked = true
 }
 
-
 fun RecyclerView.isLastItemReached(): Boolean {
     val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
     val size = layoutManager.itemCount - 1
@@ -42,4 +43,12 @@ fun RecyclerView.isLastItemReached(): Boolean {
         return true
     }
     return false
+}
+
+fun ImageView.changeState(isTrue: Boolean, trueResId: Int, falseResId: Int) {
+    if (isTrue) {
+        setImageDrawable(ctx.drawable(trueResId))
+    } else {
+        setImageDrawable(ctx.drawable(falseResId))
+    }
 }

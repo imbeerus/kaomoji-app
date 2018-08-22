@@ -26,35 +26,35 @@ class DbDataMapper {
     }
 
     fun convertTypeToId(category: String): String {
-        val types: Map<String, String> = mapOf(
-                "kissing" to "0",
-                "hugging" to "1",
-                "love" to "2",
-                "bears" to "3",
-                "cats" to "4",
-                "dogs" to "5",
-                "sheep and goats" to "6",
-                "deep crying face" to "7",
-                "denko" to "8",
-                "flower girl" to "9",
-                "happy gary" to "10",
-                "it’s here!" to "11",
-                "laughing" to "12",
-                "lenny face" to "13",
-                "look of disapproval" to "14",
-                "what’s this? emoticon" to "15",
-                "shrug emoticon" to "16",
-                "smiling" to "17",
-                "smug face" to "18",
-                "emoticon face" to "19",
-                "happy" to "20",
-                "sad" to "21",
-                "good morning" to "22",
-                "good night" to "23",
-                "hello" to "24",
-                "thank you" to "25",
-                "table flip" to "26"
-        )
-        return types[category.toLowerCase()].toString()
+        return when (category.toLowerCase()) {
+            "kissing" -> "0"
+            "hugging" -> "1"
+            "love" -> "2"
+            "bears" -> "3"
+            "cats" -> "4"
+            "dogs" -> "5"
+            "sheep and goats" -> "6"
+            "deep crying face" -> "7"
+            "denko" -> "8"
+            "flower girl" -> "9"
+            "happy gary" -> "10"
+            "it’s here!" -> "11"
+            "laughing" -> "12"
+            "lenny face" -> "13"
+            "look of disapproval" -> "14"
+            "what’s this? emoticon" -> "15"
+            "shrug emoticon" -> "16"
+            "smiling" -> "17"
+            "smug face" -> "18"
+            "emoticon face" -> "19"
+            "happy" -> "20"
+            "sad" -> "21"
+            "good morning" -> "22"
+            "good night" -> "23"
+            "hello" -> "24"
+            "thank you" -> "25"
+            "table flip" -> "26"
+            else -> "100"
+        }
     }
 }

@@ -31,7 +31,7 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>, private val i
 
     override fun getItemCount() = kamojisList.size
 
-    fun addItems(listToAdd: ArrayList<Kaomoji>){
+    fun addItems(listToAdd: ArrayList<Kaomoji>) {
         for (kaomoji in listToAdd) {
             kamojisList.add(kaomoji)
         }

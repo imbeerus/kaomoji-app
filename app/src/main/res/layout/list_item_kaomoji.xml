@@ -6,11 +6,15 @@
 
     <TextView
         android:id="@+id/value_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_kamojis_padding"
+        android:layout_marginEnd="@dimen/item_kamojis_padding"
+        android:layout_marginRight="@dimen/item_kamojis_padding"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_iv"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

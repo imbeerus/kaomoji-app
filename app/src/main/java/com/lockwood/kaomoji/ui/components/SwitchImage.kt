@@ -6,37 +6,31 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import com.lockwood.kaomoji.R
 
-
-class SwitchImage : ImageView {
+class SwitchImage @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : ImageView(context, attrs, defStyleAttr) {
 
     private lateinit var falseImage: Drawable
     private lateinit var trueImage: Drawable
 
     private var isChecked: Boolean = false
 
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs, 0) {
-        init(attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(attrs)
-    }
-
-    private fun init(attrs: AttributeSet?) {
-        if (attrs != null) {
-            val a = context.theme.obtainStyledAttributes(
-                    attrs,
-                    R.styleable.SwitchImage,
-                    0, 0)
-
+    init {
+        context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.SwitchImage,
+                0, 0).apply {
             try {
-                trueImage = a.getDrawable(R.styleable.SwitchImage_si_trueImage)
-                falseImage = a.getDrawable(R.styleable.SwitchImage_si_falseImage)
+                trueImage = getDrawable(R.styleable.SwitchImage_si_trueImage)
+                falseImage = getDrawable(R.styleable.SwitchImage_si_falseImage)
             } finally {
-                a.recycle()
+                recycle()
             }
         }
+    }
+
+    fun initState(value: Boolean) {
+        isChecked = value
     }
 
     fun checkState() {
@@ -50,9 +44,5 @@ class SwitchImage : ImageView {
     fun changeState() {
         isChecked = !isChecked
         checkState()
-    }
-
-    fun initState(value: Boolean) {
-        isChecked = value
     }
 }

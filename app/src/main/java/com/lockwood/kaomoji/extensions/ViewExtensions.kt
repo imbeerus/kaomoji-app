@@ -44,11 +44,3 @@ fun RecyclerView.isLastItemReached(): Boolean {
     }
     return false
 }
-
-fun ImageView.changeState(isTrue: Boolean, trueResId: Int, falseResId: Int) {
-    if (isTrue) {
-        setImageDrawable(ctx.drawable(trueResId))
-    } else {
-        setImageDrawable(ctx.drawable(falseResId))
-    }
-}

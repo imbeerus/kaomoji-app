@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
-import android.widget.ImageView
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.data.KaomojiDb
 import com.lockwood.kaomoji.domain.commands.RequestAllKaomojiCommand
@@ -16,9 +15,9 @@ import com.lockwood.kaomoji.domain.commands.RequestKaomojiTypeCommand
 import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.domain.model.KaomojiList
 import com.lockwood.kaomoji.extensions.addDividerItemDecoration
-import com.lockwood.kaomoji.extensions.changeState
 import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.isLastItemReached
+import com.lockwood.kaomoji.ui.components.SwitchImage
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.alert
@@ -106,10 +105,10 @@ class KaomojisFragment : Fragment() {
                             context!!.copyToClipboard(label, text)
                         }
                     },
-                    { favoriteImage: ImageView, kaomoji: Kaomoji ->
+                    { favoriteImage: SwitchImage, kaomoji: Kaomoji ->
                         kaomoji.isFavorite = !kaomoji.isFavorite
                         KaomojiDb().updateKaomoji(kaomoji)
-                        favoriteImage.changeState(kaomoji.isFavorite, R.drawable.ic_baseline_star_fill, R.drawable.ic_baseline_star_border)
+                        favoriteImage.changeState()
                     },
                     isFavoriteEnabled)
             recyclerView.adapter = kaomojiAdapter

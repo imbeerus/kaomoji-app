@@ -5,17 +5,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.domain.model.Kaomoji
-import com.lockwood.kaomoji.extensions.changeState
 import com.lockwood.kaomoji.extensions.ctx
+import com.lockwood.kaomoji.ui.components.SwitchImage
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_kaomoji.*
 
 class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>,
                       private val itemClick: (Kaomoji) -> Unit,
-                      private val itemFavoriteClick: (ImageView, Kaomoji) -> Unit,
+                      private val itemFavoriteClick: (SwitchImage, Kaomoji) -> Unit,
                       private val isFavoriteEnabled: Boolean) :
         RecyclerView.Adapter<KaomojisAdapter.ViewHolder>() {
 
@@ -40,7 +39,7 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>,
 
     class ViewHolder(override val containerView: View,
                      private val itemClick: (Kaomoji) -> Unit,
-                     private val itemFavoriteClick: (ImageView, Kaomoji) -> Unit,
+                     private val itemFavoriteClick: (SwitchImage, Kaomoji) -> Unit,
                      private val isFavoriteEnabled: Boolean)
         : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
@@ -50,7 +49,8 @@ class KaomojisAdapter(private val kamojisList: ArrayList<Kaomoji>,
                 if (!isFavoriteEnabled) {
                     favorite_iv.visibility = View.GONE
                 } else {
-                    favorite_iv.changeState(isFavorite, R.drawable.ic_baseline_star_fill, R.drawable.ic_baseline_star_border)
+                    favorite_iv.initState(kaomoji.isFavorite)
+                    favorite_iv.checkState()
                     favorite_iv.setOnClickListener { itemFavoriteClick(favorite_iv, this) }
                 }
                 itemView.setOnClickListener { itemClick(this) }

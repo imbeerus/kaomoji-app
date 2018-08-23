@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.lockwood.kaomoji.ui.components.SwitchImage
         android:id="@+id/favorite_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,5 +27,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_star_border" />
+        app:si_falseImage="@drawable/ic_baseline_star_border"
+        app:si_trueImage="@drawable/ic_baseline_star" />
 </android.support.constraint.ConstraintLayout>

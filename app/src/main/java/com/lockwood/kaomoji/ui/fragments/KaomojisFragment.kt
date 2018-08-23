@@ -45,11 +45,11 @@ class KaomojisFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
         // init fragment args
-        category = arguments?.getString(ARGUMENT_CATEGORY).toString()
-        isLargeData = category == RequestAllKaomojiCommand.LIST_TYPE
         isFavoriteEnabled = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        category = arguments?.getString(ARGUMENT_CATEGORY).toString()
         homeCategory = sharedPref!!.getString(KaomojiList.PREF_TYPE, KaomojiList.DEF_TYPE_VALUE)
+        isLargeData = category == RequestAllKaomojiCommand.LIST_TYPE || homeCategory == RequestAllKaomojiCommand.LIST_TYPE
 
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)

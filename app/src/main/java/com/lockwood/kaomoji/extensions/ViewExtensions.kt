@@ -3,13 +3,12 @@ package com.lockwood.kaomoji.extensions
 import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import com.lockwood.kaomoji.R
 
 val View.ctx: Context
     get() = context
@@ -37,10 +36,18 @@ fun MenuItem.check() {
 }
 
 fun RecyclerView.isLastItemReached(): Boolean {
-    val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-    val size = layoutManager.itemCount - 1
-    if (lastItemPosition == size) {
-        return true
+    if (layoutManager is LinearLayoutManager) {
+        val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+        val size = (layoutManager as LinearLayoutManager).itemCount - 1
+        if (lastItemPosition == size) {
+            return true
+        }
+    } else if (layoutManager is GridLayoutManager) {
+        val lastItemPosition = (layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+        val size = (layoutManager as GridLayoutManager).itemCount - ((layoutManager as GridLayoutManager).spanCount * 2)
+        if (lastItemPosition == size) {
+            return true
+        }
     }
     return false
 }

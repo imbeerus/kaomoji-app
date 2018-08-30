@@ -24,10 +24,11 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
 
-
 class KaomojisFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
+
+    private lateinit var kaomojis: KaomojiList
     private lateinit var description: String
     private lateinit var category: String
     private lateinit var homeCategory: String
@@ -39,18 +40,15 @@ class KaomojisFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
+        isFavoriteEnabled = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
+        category = arguments?.getString(ARGUMENT_CATEGORY).toString()
+        homeCategory = activity?.getPreferences(Context.MODE_PRIVATE)!!.getString(KaomojiList.PREF_TYPE, KaomojiList.DEF_TYPE_VALUE)!!
+        isLargeData = category == RequestAllKaomojiCommand.LIST_TYPE || homeCategory == RequestAllKaomojiCommand.LIST_TYPE
+        loadKaomoji()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.frag_kaomojis, container, false)
-        // init fragment args
-        isFavoriteEnabled = arguments?.getBoolean(ARGUMENT_FAVORITE)!!
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-        category = arguments?.getString(ARGUMENT_CATEGORY).toString()
-        homeCategory = sharedPref!!.getString(KaomojiList.PREF_TYPE, KaomojiList.DEF_TYPE_VALUE)
-        isLargeData = category == RequestAllKaomojiCommand.LIST_TYPE || homeCategory == RequestAllKaomojiCommand.LIST_TYPE
-
         recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             addDividerItemDecoration()
@@ -66,11 +64,6 @@ class KaomojisFragment : Fragment() {
         })
         setHasOptionsMenu(true)
         return rootView
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadKaomoji()
     }
 
     private fun loadKaomoji() = async(UI) {

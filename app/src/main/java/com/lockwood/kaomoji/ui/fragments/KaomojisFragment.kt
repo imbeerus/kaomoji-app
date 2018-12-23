@@ -18,25 +18,25 @@ import com.lockwood.kaomoji.extensions.addDividerItemDecoration
 import com.lockwood.kaomoji.extensions.copyToClipboard
 import com.lockwood.kaomoji.extensions.isLastItemReached
 import com.lockwood.kaomoji.ui.components.SwitchImage
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.*
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.coroutines.experimental.bg
 import org.jetbrains.anko.toast
+import kotlin.coroutines.CoroutineContext
 
-class KaomojisFragment : Fragment() {
+class KaomojisFragment : Fragment(), CoroutineScope {
 
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var kaomojis: KaomojiList
     private lateinit var description: String
     private lateinit var category: String
     private lateinit var homeCategory: String
     private var isFavoriteEnabled: Boolean = false
     private var isLargeData: Boolean = false
     private var isDataLoading: Boolean = false
-
     private var offset: Int = 0
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,15 +66,15 @@ class KaomojisFragment : Fragment() {
         return rootView
     }
 
-    private fun loadKaomoji() = async(UI) {
-        val result = bg { commandByCategory(category) }
+    private fun loadKaomoji() = launch {
+        val result = async(start = CoroutineStart.LAZY) { commandByCategory(category) }
         updateUI(result.await())
     }
 
-    private fun loadAdditonalKaomoji() = async(UI) {
+    private fun loadAdditonalKaomoji() = launch {
         offset += RequestAllKaomojiCommand.LIMIT_COUNT
         isDataLoading = true
-        val result = bg { commandByCategory(category) }
+        val result = async(start = CoroutineStart.LAZY) { commandByCategory(category) }
         updateUI(result.await(), true)
     }
 

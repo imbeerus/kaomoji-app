@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import android.util.Log
 import com.lockwood.kaomoji.App
-import com.lockwood.kaomoji.extensions.TAG
 import com.lockwood.kaomoji.extensions.copyAsset
 import com.lockwood.kaomoji.extensions.isFileExist
 import org.jetbrains.anko.db.ManagedSQLiteOpenHelper
@@ -42,6 +41,7 @@ class KaomojiDbHelper(private val ctx: Context = App.instance) : ManagedSQLiteOp
     private fun checkDataBase(): Boolean = ctx.isFileExist(DB_PATH + DB_NAME)
 
     companion object {
+        const val TAG = "KaomojiDbHelper"
         const val DB_NAME = "kaomoji.db"
         const val DB_VERSION = 1
         val DB_PATH: String

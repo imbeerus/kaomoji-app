@@ -1,11 +1,10 @@
 package com.lockwood.kaomoji.ui
 
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.extensions.drawable
-import org.jetbrains.anko.ctx
 
 interface ToolbarManager {
 
@@ -22,7 +21,7 @@ interface ToolbarManager {
         val actionbar: ActionBar? = activity.supportActionBar
         actionbar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(activity.ctx.drawable(R.drawable.ic_baseline_menu, android.R.color.white))
+            setHomeAsUpIndicator(activity.drawable(R.drawable.ic_baseline_menu, android.R.color.white))
         }
     }
 }

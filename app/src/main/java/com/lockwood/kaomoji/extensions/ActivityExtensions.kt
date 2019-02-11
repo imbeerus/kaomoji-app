@@ -3,11 +3,11 @@ package com.lockwood.kaomoji.extensions
 import android.app.Activity
 import android.graphics.Color
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 fun Activity.transparentStatusBar() {

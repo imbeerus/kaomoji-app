@@ -1,10 +1,10 @@
 package com.lockwood.kaomoji.ui.fragments
 
 import android.annotation.SuppressLint
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.lockwood.kaomoji.R
 import com.lockwood.kaomoji.domain.model.Kaomoji
 import com.lockwood.kaomoji.extensions.ctx

@@ -10,8 +10,8 @@ class SwitchImage @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ImageView(context, attrs, defStyleAttr) {
 
-    private lateinit var falseImage: Drawable
-    private lateinit var trueImage: Drawable
+    private var falseImage: Drawable
+    private var trueImage: Drawable
 
     private var isChecked: Boolean = false
 
@@ -21,8 +21,8 @@ class SwitchImage @JvmOverloads constructor(
                 R.styleable.SwitchImage,
                 0, 0).apply {
             try {
-                trueImage = getDrawable(R.styleable.SwitchImage_si_trueImage)
-                falseImage = getDrawable(R.styleable.SwitchImage_si_falseImage)
+                trueImage = getDrawable(R.styleable.SwitchImage_si_trueImage)!!
+                falseImage = getDrawable(R.styleable.SwitchImage_si_falseImage)!!
             } finally {
                 recycle()
             }

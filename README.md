@@ -11,6 +11,3 @@ Japanese emoticons app
 * Easy to use, fully functional and kawaii! (*ゝω・)ﾉ
 * Allows to copy Japanese emoticons.
 * You can add emoticons to Favorites list.
-
-## Support
-If you want to support the the project or show your appreciation feel free to **[buy me a coffee / donate](https://www.paypal.me/kekc1304/1)**
